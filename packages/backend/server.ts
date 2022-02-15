@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import morgan from "morgan";
 
 // load env variables
 // PS: env files should not be included in git history, but I did in here for demonstrate
@@ -8,6 +9,7 @@ dotenv.config();
 
 // express initialization and settings
 const app = express();
+app.use(morgan("dev"));
 
 app.get("/", (_, res) => {
   console.log("hey");
