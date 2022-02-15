@@ -7,7 +7,7 @@ create table if not exists users.data(
   full_name varchar(255) not null,
   username varchar(255) unique not null,
   pwd text not null,
-  email varchar(255),
+  email varchar(255) unique,
   created_at TIMESTAMPTZ not null default now()
 );
 
