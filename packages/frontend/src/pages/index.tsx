@@ -1,7 +1,14 @@
 import React from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const IndexPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const NavigateTo = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <Flex
       direction="column"
@@ -12,7 +19,12 @@ const IndexPage: React.FC = () => {
     >
       <Text fontSize="2xl">Heyyy, Guest</Text>
       <Flex direction={{ base: "column", md: "row" }} marginTop="4">
-        <Button colorScheme="teal" shadow="sm" width={{ base: "64", md: "32" }}>
+        <Button
+          colorScheme="teal"
+          shadow="sm"
+          width={{ base: "64", md: "32" }}
+          onClick={() => NavigateTo("register")}
+        >
           Register
         </Button>
         <Box marginX="2" marginY="1"></Box>
