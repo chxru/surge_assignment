@@ -2,6 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
 
+import db from "./util/db";
+
+import AuthRouter from "./routes/auth.routes";
+
 // load env variables if environment is not production
 // PS: env files should not be included in git history, but I did in here for demonstrate
 // purposes
@@ -9,15 +13,25 @@ if (!process.env.PRODUCTION) dotenv.config({ path: "../../.env" });
 
 // express initialization and settings
 const app = express();
-app.use(morgan("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev")); // request logger
 
-app.get("/", (_, res) => {
-  console.log("hey");
-  res.sendStatus(200);
+// routes
+app.use("/auth", AuthRouter);
+
+// 404 for undefined routes
+app.get("*", (_, res) => {
+  res.sendStatus(404);
 });
 
+// main fn
 (async () => {
   try {
+    // connect to database
+    await db.connect();
+    console.log("Connected to database");
+
     // mount backend
     await app.listen(process.env.BE_PORT);
     console.log(`App listening on ${process.env.BE_PORT}`);
