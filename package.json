@@ -1,0 +1,11 @@
+{
+  "name": "surge_assignment",
+  "version": "1.0.0",
+  "description": "Assignment for surge global SE internship",
+  "author": "chxru",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
