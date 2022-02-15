@@ -1,13 +1,18 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
+import Header from "./components/header";
+
 import IndexPage from "./pages";
 
 const App: React.FC = () => {
   return (
-    <Routes>
-      <Route path="/" element={<IndexPage />} />
-    </Routes>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<IndexPage />} />
+      </Routes>
+    </>
   );
 };
 
