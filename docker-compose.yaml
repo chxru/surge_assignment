@@ -1,0 +1,18 @@
+version: "3.1"
+
+services:
+  db:
+    build: ./database
+    restart: unless-stopped
+    ports:
+      - 3002:5432 # TODO: Remove this in final build
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PGDATABASE}
+    volumes:
+      - surge-assignment-chxru:/var/lib/postgresql/data
+
+volumes:
+  surge-assignment-chxru:
+
