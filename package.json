@@ -5,6 +5,10 @@
   "author": "chxru",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "dev:b": "yarn --cwd packages/backend dev",
+    "dev:f": "yarn --cwd packages/frontend start"
+  },
   "workspaces": [
     "packages/*"
   ]
