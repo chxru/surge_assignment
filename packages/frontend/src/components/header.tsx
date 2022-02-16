@@ -27,7 +27,7 @@ const Header: React.FC = () => {
       <Box marginX="8" cursor="pointer">
         About
       </Box>
-      <Box marginX="8" cursor="pointer">
+      <Box marginX="8" cursor="pointer" onClick={() => NavigateTo("me")}>
         Profile
       </Box>
     </Flex>
