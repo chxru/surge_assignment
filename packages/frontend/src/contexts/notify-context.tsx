@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 /**
  * Context corresponding to showing alerts in overlay
@@ -15,4 +15,9 @@ const NotifyContext = React.createContext<{
   info: (title: string, description?: string) => {},
 });
 
-export default NotifyContext;
+const useNotify = () => {
+  const notify = useContext(NotifyContext);
+  return notify;
+};
+
+export { useNotify, NotifyContext };

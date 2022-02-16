@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -13,7 +13,7 @@ import {
 import { useForm } from "react-hook-form";
 import type { API } from "@chxru/types";
 
-import NotifyContext from "../contexts/notify-context";
+import { useNotify } from "../contexts/notify-context";
 import ApiRequest from "../util/request";
 
 interface RegisterForm extends API.Auth.RegisterForm {
@@ -30,7 +30,7 @@ const RegisterPage: React.FC = () => {
     register,
   } = useForm<RegisterForm>();
 
-  const notify = useContext(NotifyContext);
+  const notify = useNotify();
 
   /**
    * Execute when your click submit button

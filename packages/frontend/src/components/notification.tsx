@@ -1,7 +1,7 @@
 import React from "react";
 import { useToast, UseToastOptions } from "@chakra-ui/react";
 
-import NotificationContext from "../contexts/notify-context";
+import { NotifyContext } from "../contexts/notify-context";
 
 /**
  * Overlay for chakra-toasts
@@ -56,9 +56,9 @@ const NotificationOverlay: React.FC = ({ children }) => {
   };
 
   return (
-    <NotificationContext.Provider value={{ success, error, warning, info }}>
+    <NotifyContext.Provider value={{ success, error, warning, info }}>
       <div style={{ width: "100vw", height: "100vh" }}>{children}</div>
-    </NotificationContext.Provider>
+    </NotifyContext.Provider>
   );
 };
 
