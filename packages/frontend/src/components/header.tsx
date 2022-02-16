@@ -9,6 +9,10 @@ const Header: React.FC = () => {
     navigate(path);
   };
 
+  const NavigateExternal = (path: string) => {
+    window.open(path);
+  };
+
   return (
     <Flex
       justify={{ base: "center", md: "flex-end" }}
@@ -21,11 +25,14 @@ const Header: React.FC = () => {
       <Box marginX="8" cursor="pointer" onClick={() => NavigateTo("/")}>
         Home
       </Box>
-      <Box marginX="8" cursor="pointer">
+      <Box
+        marginX="8"
+        cursor="pointer"
+        onClick={() =>
+          NavigateExternal("https://github.com/chxru/surge_assignment")
+        }
+      >
         Github
-      </Box>
-      <Box marginX="8" cursor="pointer">
-        About
       </Box>
       <Box marginX="8" cursor="pointer" onClick={() => NavigateTo("me")}>
         Profile
