@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { API } from "@chxru/types";
+import Splash from "../components/splash";
 
 const AuthContext = createContext<{
   user: API.Auth.PublicUserData | null;
@@ -62,7 +63,7 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <AuthContext.Provider value={{ user, initiating, OnSignIn, OnSignOut }}>
-      {children}
+      {initiating ? <Splash /> : children}
     </AuthContext.Provider>
   );
 };
