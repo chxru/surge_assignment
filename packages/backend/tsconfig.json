@@ -6,6 +6,9 @@
     "baseUrl": "./",
     "outDir": "./build",
     "esModuleInterop": true,
-    "strict": true
-  }
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["./**/*"],
+  "exclude": ["node_modules", "build"]
 }

@@ -6,6 +6,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
     "dev": "nodemon server.ts",
     "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx"
   },
