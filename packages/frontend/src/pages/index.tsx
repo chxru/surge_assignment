@@ -20,7 +20,9 @@ const IndexPage: React.FC = () => {
       justify="center"
       alignItems="center"
     >
-      <Text fontSize="2xl">Heyyy, {auth.user?.username || "Guest"}</Text>
+      <Text fontSize="2xl">
+        Heyyy, {auth.user ? auth.user.full_name : "Guest"}
+      </Text>
       <Flex direction={{ base: "column", md: "row" }} marginTop="4">
         {auth.user ? (
           <>

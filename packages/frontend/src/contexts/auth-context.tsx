@@ -28,11 +28,11 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
   /**
    * Update user context when login
    *
-   * @param {API.Auth.PublicUserData} user
+   * @param {API.Auth.PublicUserData} u
    */
-  const OnSignIn = (user: API.Auth.PublicUserData) => {
-    setUser(user);
-    navigate("/");
+  const OnSignIn = (u: API.Auth.PublicUserData) => {
+    setUser(u);
+    window.open("/", "_self");
   };
 
   /**
