@@ -1,0 +1,52 @@
+version: "3.1"
+
+services:
+  db:
+    build: ./database
+    restart: unless-stopped
+    ports:
+      - 3002:5432 # TODO: Remove this in final build
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PGDATABASE}
+    volumes:
+      - surge-assignment-chxru:/var/lib/postgresql/data
+
+  reverse-proxy:
+    image: traefik:2.6
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - ./traefik:/etc/traefik
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./packages/frontend/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+
+  backend:
+    build:
+      context: ./
+      dockerfile: ./packages/backend/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 3001:3001
+    environment:
+      PRODUCTION: true
+      PGPASSWORD: ${PGPASSWORD}
+      PGUSER: ${PGUSER}
+      PGDATABASE: ${PGDATABASE}
+      BE_PORT: ${BE_PORT}
+      JWT_ACCESS_TOKEN: ${JWT_ACCESS_TOKEN}
+    depends_on:
+      - db
+
+volumes:
+  surge-assignment-chxru:
+
