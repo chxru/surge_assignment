@@ -131,4 +131,10 @@ router.post(
   }
 );
 
+// sign out, send clear cookie command
+router.post("/logout", (_, res) => {
+  res.clearCookie("token");
+  res.sendStatus(200);
+});
+
 export default router;
