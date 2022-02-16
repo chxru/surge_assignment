@@ -28,9 +28,9 @@ router.post(
       // send response
       // set refresh token in cookie
       res.cookie("token", refresh_token, {
-        domain: "localhost:3001",
+        domain: "localhost",
+        expires: new Date(Date.now() + 7 * 24 * 3600000), // expires in 7 days
         httpOnly: true,
-        maxAge: 60 * 60 * 24 * 7, // 7 days
         secure: true, // https or localhost
       });
 
