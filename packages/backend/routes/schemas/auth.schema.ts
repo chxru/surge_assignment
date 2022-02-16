@@ -1,5 +1,19 @@
 import { Schema } from "express-validator";
 
+// schema for user sign in
+const login_schema: Schema = {
+  username: {
+    in: "body",
+    isString: true,
+    errorMessage: "Username must not be empty",
+    trim: true,
+  },
+  pwd: {
+    in: "body",
+    errorMessage: "Password must not be empty",
+  },
+};
+
 // schema for user registration
 const register_schema: Schema = {
   full_name: {
@@ -27,4 +41,4 @@ const register_schema: Schema = {
   },
 };
 
-export { register_schema };
+export { login_schema, register_schema };

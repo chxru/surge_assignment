@@ -27,4 +27,15 @@ const ValidateRequest = (
   }
 };
 
-export { ValidateRequest };
+/**
+ * Return true if parameter is an email
+ *
+ * @param {string} data
+ * @return {*}
+ */
+const ValidateEmail = (data: string) => {
+  // https://www.w3resource.com/javascript/form/email-validation.php
+  return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(data);
+};
+
+export { ValidateRequest, ValidateEmail };

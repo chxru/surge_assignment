@@ -15,6 +15,16 @@ export namespace API {
 
   export namespace Auth {
     /**
+     * User login form data
+     *
+     * @export
+     * @interface LoginForm
+     */
+    export interface LoginForm {
+      username: string;
+      pwd: string;
+    }
+    /**
      * New user registering request
      *
      * @export
