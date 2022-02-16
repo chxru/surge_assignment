@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -11,8 +11,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-
 import type { API } from "@chxru/types";
+
+import NotifyContext from "../contexts/notify-context";
 import ApiRequest from "../util/request";
 
 interface RegisterForm extends API.Auth.RegisterForm {
@@ -28,6 +29,8 @@ const RegisterPage: React.FC = () => {
     handleSubmit,
     register,
   } = useForm<RegisterForm>();
+
+  const notify = useContext(NotifyContext);
 
   /**
    * Execute when your click submit button
@@ -47,12 +50,15 @@ const RegisterPage: React.FC = () => {
       // if err exists, break the function
       if (err) throw new Error(err);
 
+      notify.success("User registration is success!");
       console.log(data);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        notify.error("Error occurred", error.message);
       } else {
         console.log(error);
+        notify.error("Error occurred, please try again later");
       }
     } finally {
       setAuthenticating(false);
