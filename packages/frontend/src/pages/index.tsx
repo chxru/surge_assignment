@@ -2,8 +2,11 @@ import React from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
+import { useAuth } from "../contexts/auth-context";
+
 const IndexPage: React.FC = () => {
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const NavigateTo = (path: string) => {
     navigate(path);
@@ -17,7 +20,7 @@ const IndexPage: React.FC = () => {
       justify="center"
       alignItems="center"
     >
-      <Text fontSize="2xl">Heyyy, Guest</Text>
+      <Text fontSize="2xl">Heyyy, {auth.user?.username || "Guest"}</Text>
       <Flex direction={{ base: "column", md: "row" }} marginTop="4">
         <Button
           colorScheme="teal"

@@ -14,6 +14,8 @@ import { useForm } from "react-hook-form";
 import type { API } from "@chxru/types";
 
 import { useNotify } from "../contexts/notify-context";
+import { useAuth } from "../contexts/auth-context";
+
 import ApiRequest from "../util/request";
 
 interface RegisterForm extends API.Auth.RegisterForm {
@@ -30,6 +32,7 @@ const RegisterPage: React.FC = () => {
     register,
   } = useForm<RegisterForm>();
 
+  const auth = useAuth();
   const notify = useNotify();
 
   /**
@@ -50,8 +53,11 @@ const RegisterPage: React.FC = () => {
       // if err exists, break the function
       if (err) throw new Error(err);
 
+      // if user data not available
+      if (!data) throw new Error("Could not fetch user information");
+
       notify.success("User registration is success!");
-      console.log(data);
+      auth.OnSignIn(data);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
