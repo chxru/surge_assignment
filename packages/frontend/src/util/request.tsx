@@ -2,7 +2,7 @@ import type { API } from "@chxru/types";
 
 interface RequestForm {
   path: string;
-  method: "GET" | "POST" | "UPDATE" | "DELETE";
+  method: "GET" | "POST" | "PUT" | "DELETE";
   obj?: { [key: string]: any };
 }
 
