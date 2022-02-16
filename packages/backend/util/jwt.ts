@@ -78,4 +78,23 @@ const DecodeUID = async (t: string): Promise<number> => {
   return id;
 };
 
-export { GenerateJWT, DecodeJWT, DecodeUID };
+/**
+ * Verify JWT is valid
+ *
+ * @param {string} token
+ * @return {*}  {boolean}
+ */
+const VerifyJWT = (token: string): boolean => {
+  if (!process.env.JWT_ACCESS_TOKEN) {
+    return false;
+  }
+
+  try {
+    jwt.verify(token, process.env.JWT_ACCESS_TOKEN);
+    return true;
+  } catch (_) {
+    return false;
+  }
+};
+
+export { GenerateJWT, DecodeJWT, DecodeUID, VerifyJWT };

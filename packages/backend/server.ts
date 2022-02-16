@@ -7,6 +7,8 @@ import db from "./util/db";
 import AuthRouter from "./routes/auth.routes";
 import UserRouter from "./routes/user.routes";
 
+import { VerifyAuth } from "./middleware/authVerify";
+
 // load env variables if environment is not production
 // PS: env files should not be included in git history, but I did in here for demonstrate
 // purposes
@@ -17,6 +19,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev")); // request logger
+app.use(VerifyAuth); // auth middleware
 
 // routes
 app.use("/api/auth", AuthRouter);
