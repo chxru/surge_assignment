@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import type { API } from "@chxru/types";
 
 const AuthContext = createContext<{
@@ -16,6 +17,7 @@ const AuthContext = createContext<{
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [user, setUser] = useState<API.Auth.PublicUserData | null>(null);
   const [initiating, setInitiating] = useState<boolean>(true);
+  const navigate = useNavigate();
 
   /**
    * Update user context when login
@@ -24,6 +26,7 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
    */
   const OnSignIn = (user: API.Auth.PublicUserData) => {
     setUser(user);
+    navigate("/");
   };
 
   /**
@@ -32,6 +35,7 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
    */
   const OnSignOut = () => {
     setUser(null);
+    navigate("/");
   };
 
   const RefreshData = async () => {
