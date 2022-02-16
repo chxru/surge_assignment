@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -13,6 +13,7 @@ import {
 import { useForm } from "react-hook-form";
 
 import type { API } from "@chxru/types";
+import ApiRequest from "../util/request";
 
 interface RegisterForm extends API.Auth.RegisterForm {
   pwd: string;
@@ -20,6 +21,7 @@ interface RegisterForm extends API.Auth.RegisterForm {
 }
 
 const RegisterPage: React.FC = () => {
+  const [authenticating, setAuthenticating] = useState<boolean>(false);
   const {
     formState: { errors },
     getValues,
@@ -33,7 +35,28 @@ const RegisterPage: React.FC = () => {
    * @param {RegisterForm} value
    */
   const OnSubmit = async (value: RegisterForm) => {
-    console.log(value);
+    try {
+      setAuthenticating(true);
+
+      const { data, err } = await ApiRequest<API.Auth.PublicUserData>({
+        path: "auth/register",
+        method: "POST",
+        obj: value,
+      });
+
+      // if err exists, break the function
+      if (err) throw new Error(err);
+
+      console.log(data);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else {
+        console.log(error);
+      }
+    } finally {
+      setAuthenticating(false);
+    }
   };
 
   return (
@@ -178,10 +201,21 @@ const RegisterPage: React.FC = () => {
             )}
 
             <ButtonGroup>
-              <Button colorScheme="teal" type="submit" marginY="8" width="32">
+              <Button
+                colorScheme="teal"
+                type="submit"
+                marginY="8"
+                width="32"
+                isLoading={authenticating}
+              >
                 Register
               </Button>
-              <Button type="reset" marginY="8" width="32">
+              <Button
+                type="reset"
+                marginY="8"
+                width="32"
+                isDisabled={authenticating}
+              >
                 Reset
               </Button>
             </ButtonGroup>
