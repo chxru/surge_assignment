@@ -54,4 +54,29 @@ export namespace API {
       user: PublicUserData;
     }
   }
+
+  export namespace User {
+    /**
+     * Form data used for change password request
+     *
+     * @export
+     * @interface ChangePasswordForm
+     */
+    export interface ChangePasswordForm {
+      old_pwd: string;
+      new_pwd: string;
+    }
+
+    /**
+     * For data used for changing user data
+     *
+     * @export
+     * @interface EditInfoForm
+     */
+    export interface EditInfoForm {
+      username: string;
+      email: string;
+      full_name: string;
+    }
+  }
 }

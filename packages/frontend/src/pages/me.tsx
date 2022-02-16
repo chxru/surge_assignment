@@ -2,9 +2,15 @@ import React from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 
 import { useAuth } from "../contexts/auth-context";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage: React.FC = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
+
+  const NavigateTo = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <Flex>
@@ -90,7 +96,9 @@ const ProfilePage: React.FC = () => {
           </Flex>
 
           <Flex justify="center" marginTop="4">
-            <Button width="64">Edit</Button>
+            <Button width="64" onClick={() => NavigateTo("/me/edit")}>
+              Edit
+            </Button>
           </Flex>
         </Box>
         <Box display={{ base: "block", md: "none" }} />

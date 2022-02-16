@@ -59,4 +59,23 @@ const GenerateJWT = (id: number): Promise<string> => {
   });
 };
 
-export { GenerateJWT, DecodeJWT };
+/**
+ * Grab user id from jwt
+ *
+ * @param {string} token
+ * @return {*}  {Promise<number>}
+ */
+const DecodeUID = async (t: string): Promise<number> => {
+  // token is in token=xxxxxxx format
+  const token = t.split("=")[1];
+  const payload = await DecodeJWT(token);
+
+  const id = JSON.parse(payload).id;
+  if (!id) {
+    throw new Error("JWT missing id");
+  }
+
+  return id;
+};
+
+export { GenerateJWT, DecodeJWT, DecodeUID };

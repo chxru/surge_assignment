@@ -5,6 +5,7 @@ import morgan from "morgan";
 import db from "./util/db";
 
 import AuthRouter from "./routes/auth.routes";
+import UserRouter from "./routes/user.routes";
 
 // load env variables if environment is not production
 // PS: env files should not be included in git history, but I did in here for demonstrate
@@ -19,6 +20,7 @@ app.use(morgan("dev")); // request logger
 
 // routes
 app.use("/api/auth", AuthRouter);
+app.use("/api/user", UserRouter);
 
 // 404 for undefined routes
 app.get("*", (_, res) => {

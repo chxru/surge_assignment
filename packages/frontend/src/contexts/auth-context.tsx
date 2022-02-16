@@ -10,11 +10,13 @@ const AuthContext = createContext<{
   initiating: boolean;
   OnSignIn: (user: API.Auth.PublicUserData) => void;
   OnSignOut: () => Promise<void>;
+  UpdateUser: (user: API.Auth.PublicUserData) => void;
 }>({
   user: null,
   initiating: true,
   OnSignIn: () => {},
   OnSignOut: async () => {},
+  UpdateUser: () => {},
 });
 
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
@@ -62,6 +64,15 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
   };
 
+  /**
+   * Update auth context's user object
+   *
+   * @param {API.Auth.PublicUserData} u
+   */
+  const UpdateUser = (u: API.Auth.PublicUserData) => {
+    setUser(u);
+  };
+
   const RefreshData = async () => {
     const res = await fetch("/api/auth/refresh", {
       method: "GET",
@@ -85,7 +96,9 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, initiating, OnSignIn, OnSignOut }}>
+    <AuthContext.Provider
+      value={{ user, initiating, OnSignIn, OnSignOut, UpdateUser }}
+    >
       {initiating ? <Splash /> : children}
     </AuthContext.Provider>
   );

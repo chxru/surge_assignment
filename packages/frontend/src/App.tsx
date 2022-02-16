@@ -7,6 +7,7 @@ import { useAuth } from "./contexts/auth-context";
 import { useNotify } from "./contexts/notify-context";
 
 import IndexPage from "./pages";
+import ProfileEditPage from "./pages/edit";
 import LoginPage from "./pages/login";
 import ProfilePage from "./pages/me";
 import RegisterPage from "./pages/register";
@@ -40,6 +41,14 @@ const App: React.FC = () => {
           element={
             <RequireAuth>
               <ProfilePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/me/edit"
+          element={
+            <RequireAuth>
+              <ProfileEditPage />
             </RequireAuth>
           }
         />
