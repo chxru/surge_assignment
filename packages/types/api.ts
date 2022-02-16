@@ -41,7 +41,6 @@ export namespace API {
      * @interface AuthResponse
      */
     export interface AuthResponse {
-      access_token: string;
       user: PublicUserData;
     }
   }

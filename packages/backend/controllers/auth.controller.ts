@@ -11,7 +11,6 @@ import type { API } from "@chxru/types";
  * @return {*}  {Promise<{
  *   user: API.Auth.PublicUserData;
  *   access_token: string;
- *   refresh_token: string;
  * }>}
  */
 const HandleRegisterNewUser = async (
@@ -19,7 +18,6 @@ const HandleRegisterNewUser = async (
 ): Promise<{
   user: API.Auth.PublicUserData;
   access_token: string;
-  refresh_token: string;
 }> => {
   // generate hash of the password
   const hashedPwd = await HashPwd(data.pwd);
@@ -33,9 +31,8 @@ const HandleRegisterNewUser = async (
   // auto generated user id
   const id = q1.rows[0].id;
 
-  // Generate JWTs
-  const access_token = await GenerateJWT(id, "access");
-  const refresh_token = await GenerateJWT(id, "refresh");
+  // Generate JWT
+  const access_token = await GenerateJWT(id);
 
   // set tokens expire timestamp (20 minutes)
   const expire_time = new Date(new Date().getTime() + 20 * 60000);
@@ -43,7 +40,7 @@ const HandleRegisterNewUser = async (
   // save refresh token data in database
   await db.query(
     "INSERT INTO users.tokens (id, token, expires) VALUES ($1, $2, $3)",
-    [id, refresh_token, expire_time]
+    [id, access_token, expire_time]
   );
 
   console.log(`User ${id} : ${data.full_name} created successfully`);
@@ -56,7 +53,7 @@ const HandleRegisterNewUser = async (
     full_name: data.full_name,
   };
 
-  return { user, access_token, refresh_token };
+  return { user, access_token };
 };
 
 export { HandleRegisterNewUser };

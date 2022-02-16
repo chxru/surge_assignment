@@ -21,13 +21,11 @@ router.post(
     res: Response<API.Response<API.Auth.AuthResponse>>
   ) => {
     try {
-      const { access_token, refresh_token, user } = await HandleRegisterNewUser(
-        req.body
-      );
+      const { access_token, user } = await HandleRegisterNewUser(req.body);
 
       // send response
-      // set refresh token in cookie
-      res.cookie("token", refresh_token, {
+      // set access token in cookie
+      res.cookie("token", access_token, {
         domain: "localhost",
         expires: new Date(Date.now() + 7 * 24 * 3600000), // expires in 7 days
         httpOnly: true,
@@ -35,7 +33,7 @@ router.post(
       });
 
       // send success response
-      res.status(200).json({ data: { user, access_token } });
+      res.status(200).json({ data: { user } });
     } catch (error) {
       if (error instanceof Error) {
         // duplicate constraint violations
