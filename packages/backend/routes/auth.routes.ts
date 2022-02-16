@@ -4,6 +4,7 @@ import { checkSchema } from "express-validator";
 import { login_schema, register_schema } from "./schemas/auth.schema";
 
 import {
+  HandleDataRefresh,
   HandleRegisterNewUser,
   HandleUserLogin,
 } from "../controllers/auth.controller";
@@ -47,6 +48,30 @@ router.post(
       }
 
       console.log("Unknown error occurred while user signing" + error);
+      res.sendStatus(500);
+    }
+  }
+);
+
+// handle user refresh
+router.get(
+  "/refresh",
+  async (req, res: Response<API.Response<API.Auth.PublicUserData>>) => {
+    // cookie is in token=xxxxxxx format
+    const token = req.headers.cookie?.split("=")[1];
+    if (!token) {
+      // 403 if token not found
+      console.log("Token not found");
+      res.sendStatus(403);
+      return;
+    }
+
+    try {
+      const user = await HandleDataRefresh(token);
+      res.status(200).json({ data: user });
+    } catch (error) {
+      // silently ignore any errors here
+      console.error("Error occurred in user data refresh" + error);
       res.sendStatus(500);
     }
   }

@@ -1,7 +1,7 @@
 import db from "../util/db";
 import { ComparePwd, HashPwd } from "../util/bcrypt";
 
-import { GenerateJWT } from "../util/jwt";
+import { DecodeJWT, GenerateJWT } from "../util/jwt";
 import { ValidateEmail } from "../util/requestValidate";
 
 import type { API, DB } from "@chxru/types";
@@ -71,10 +71,46 @@ const HandleUserLogin = async (
 };
 
 /**
+ * Fetch user data related to jwt token
+ *
+ * @param {string} token
+ * @return {*}  {Promise<API.Auth.PublicUserData>}
+ */
+const HandleDataRefresh = async (
+  token: string
+): Promise<API.Auth.PublicUserData> => {
+  // decode jwt
+  const payload = await DecodeJWT(token);
+
+  const id = JSON.parse(payload).id;
+  if (!id) {
+    throw new Error("JWT missing id");
+  }
+
+  // query user data
+  const q1 = await db.query(
+    `SELECT id, full_name, username, pwd, email FROM users.data WHERE id=$1`,
+    [id]
+  );
+  if (q1.rowCount === 0) {
+    throw new Error(`No user found with id ${id}`);
+  }
+
+  const user: API.Auth.PublicUserData = {
+    username: q1.rows[0].username,
+    email: q1.rows[0].email,
+    full_name: q1.rows[0].full_name,
+    id: q1.rows[0].id,
+  };
+
+  return user;
+};
+
+/**
  * Create new user in database, generate JWTs and store them in database.
  *
  * @param {API.Auth.RegisterForm} data
- * @return {*}  {Promise<{
+ * @return {*}  {Promise<{b
  *   user: API.Auth.PublicUserData;
  *   access_token: string;
  * }>}
@@ -122,4 +158,4 @@ const HandleRegisterNewUser = async (
   return { user, access_token };
 };
 
-export { HandleUserLogin, HandleRegisterNewUser };
+export { HandleUserLogin, HandleRegisterNewUser, HandleDataRefresh };
