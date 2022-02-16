@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev")); // request logger
 
 // routes
-app.use("/auth", AuthRouter);
+app.use("/api/auth", AuthRouter);
 
 // 404 for undefined routes
 app.get("*", (_, res) => {
