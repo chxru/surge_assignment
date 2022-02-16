@@ -12,13 +12,11 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
-// TODO: move into types folder
-interface RegisterForm {
-  full_name: string;
-  email: string;
-  username: string;
-  password: string;
-  re_password: string;
+import type { API } from "@chxru/types";
+
+interface RegisterForm extends API.Auth.RegisterForm {
+  pwd: string;
+  re_pwd: string;
 }
 
 const RegisterPage: React.FC = () => {
@@ -138,7 +136,7 @@ const RegisterPage: React.FC = () => {
             <Input
               id="password"
               type="password"
-              {...register("password", {
+              {...register("pwd", {
                 required: true,
                 minLength: {
                   value: 6,
@@ -146,9 +144,9 @@ const RegisterPage: React.FC = () => {
                 },
               })}
             />
-            {errors.password && (
+            {errors.pwd && (
               <FormHelperText textColor="red.500">
-                {errors.password.message}
+                {errors.pwd.message}
               </FormHelperText>
             )}
           </FormControl>
@@ -159,7 +157,7 @@ const RegisterPage: React.FC = () => {
               id="re_password"
               type="password"
               marginBottom="4"
-              {...register("re_password", {
+              {...register("re_pwd", {
                 required: true,
                 minLength: {
                   value: 6,
@@ -167,15 +165,15 @@ const RegisterPage: React.FC = () => {
                 },
                 validate: {
                   matchesPreviousPassword: (value) => {
-                    const { password } = getValues();
-                    return password === value || "Passwords should match!";
+                    const { pwd } = getValues();
+                    return pwd === value || "Passwords should match!";
                   },
                 },
               })}
             />
-            {errors.re_password && (
+            {errors.re_pwd && (
               <FormHelperText textColor="red.500">
-                {errors.re_password.message}
+                {errors.re_pwd.message}
               </FormHelperText>
             )}
 
