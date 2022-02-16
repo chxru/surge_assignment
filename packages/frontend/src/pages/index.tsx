@@ -52,7 +52,11 @@ const IndexPage: React.FC = () => {
               Register
             </Button>
             <Box marginX="2" marginY="1"></Box>
-            <Button shadow="sm" width={{ base: "64", md: "32" }}>
+            <Button
+              shadow="sm"
+              width={{ base: "64", md: "32" }}
+              onClick={() => NavigateTo("login")}
+            >
               Login
             </Button>
           </>
