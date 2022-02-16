@@ -4,26 +4,24 @@ interface RequestForm {
   path: string;
   method: "GET" | "POST" | "UPDATE" | "DELETE";
   obj?: { [key: string]: any };
-  token?: string;
 }
 
 const ApiRequest = async <T,>({
   path,
   method,
   obj,
-  token,
 }: RequestForm): Promise<API.Response<T>> => {
   try {
     // setup headers
     const headers = new Headers({});
     headers.append("Content-Type", "application/json;charset=utf-8");
-    if (token) headers.append("Authorization", token);
 
     // sending request
     const response = await fetch(`/api/${path}`, {
       method,
       headers,
       body: JSON.stringify(obj),
+      credentials: "same-origin",
     });
 
     if (response.ok) {
