@@ -18,8 +18,10 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
 
   // onMount
   useEffect(() => {
-    notify.warning("You have to be logged in to see this page");
-  }, [notify]);
+    if (!auth.user) {
+      notify.warning("You have to be logged in to see this page");
+    }
+  }, [auth.user, notify]);
 
   if (!auth.user) {
     return <Navigate to="/login" />;
