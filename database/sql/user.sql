@@ -11,9 +11,6 @@ create table if not exists users.data(
   created_at TIMESTAMPTZ not null default now()
 );
 
--- create index for user.username
-create index if not exists user_username_idx on users.data (username);
-
 -- create user.tokens to store refresh tokens
 create table if not exists users.tokens(
   id integer references users.data(id),
