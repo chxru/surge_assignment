@@ -28,7 +28,7 @@ const IndexPage: React.FC = () => {
               colorScheme="teal"
               shadow="sm"
               width={{ base: "64", md: "32" }}
-              onClick={() => NavigateTo("register")}
+              onClick={() => NavigateTo("me")}
             >
               View Profile
             </Button>
