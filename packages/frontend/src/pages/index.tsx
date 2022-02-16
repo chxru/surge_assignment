@@ -22,18 +22,41 @@ const IndexPage: React.FC = () => {
     >
       <Text fontSize="2xl">Heyyy, {auth.user?.username || "Guest"}</Text>
       <Flex direction={{ base: "column", md: "row" }} marginTop="4">
-        <Button
-          colorScheme="teal"
-          shadow="sm"
-          width={{ base: "64", md: "32" }}
-          onClick={() => NavigateTo("register")}
-        >
-          Register
-        </Button>
-        <Box marginX="2" marginY="1"></Box>
-        <Button shadow="sm" width={{ base: "64", md: "32" }}>
-          Login
-        </Button>
+        {auth.user ? (
+          <>
+            <Button
+              colorScheme="teal"
+              shadow="sm"
+              width={{ base: "64", md: "32" }}
+              onClick={() => NavigateTo("register")}
+            >
+              View Profile
+            </Button>
+            <Box marginX="2" marginY="1"></Box>
+            <Button
+              shadow="sm"
+              width={{ base: "64", md: "32" }}
+              onClick={auth.OnSignOut}
+            >
+              Logout
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              colorScheme="teal"
+              shadow="sm"
+              width={{ base: "64", md: "32" }}
+              onClick={() => NavigateTo("register")}
+            >
+              Register
+            </Button>
+            <Box marginX="2" marginY="1"></Box>
+            <Button shadow="sm" width={{ base: "64", md: "32" }}>
+              Login
+            </Button>
+          </>
+        )}
       </Flex>
     </Flex>
   );
