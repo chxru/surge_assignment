@@ -16,7 +16,8 @@
 - When the requesting path prefix is `/api`. request is redirected to `backend` package
 - `backend` package has a TCP connection with database for querying
 
-Development is done using yarn workspaces due to code sharing facility.
+Development is done using yarn workspaces due to code sharing facility.  
+Progress tracking done through [github projects](https://github.com/users/chxru/projects/4/views/1)
 
 ### Project directory
 
@@ -70,6 +71,9 @@ Development is done using yarn workspaces due to code sharing facility.
 ## Scripts
 
 These scripts are useful for local development
+
 `yarn install` - install packages
+
 `yarn dev:f` - initiate react app in dev mode
+
 `yarn dev:v` - initiate express server in dev mode
