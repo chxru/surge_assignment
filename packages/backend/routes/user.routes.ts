@@ -8,7 +8,7 @@ import {
 
 import { change_pwd_schema, edit_user_schema } from "./schemas/user.schema";
 
-import { ValidateRequest } from "../util/requestValidate";
+import { ValidateRequest } from "../util/validation";
 
 import type { API } from "@chxru/types";
 

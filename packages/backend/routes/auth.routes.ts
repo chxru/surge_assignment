@@ -9,7 +9,7 @@ import {
   HandleUserLogin,
 } from "../controllers/auth.controller";
 
-import { ValidateRequest } from "../util/requestValidate";
+import { ValidateRequest } from "../util/validation";
 
 import type { API } from "@chxru/types";
 

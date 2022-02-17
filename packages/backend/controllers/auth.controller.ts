@@ -2,7 +2,7 @@ import db from "../util/db";
 import { ComparePwd, HashPwd } from "../util/bcrypt";
 
 import { DecodeJWT, GenerateJWT } from "../util/jwt";
-import { ValidateEmail } from "../util/requestValidate";
+import { ValidateEmail } from "../util/validation";
 
 import type { API, DB } from "@chxru/types";
 
