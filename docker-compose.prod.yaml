@@ -38,7 +38,7 @@ services:
     ports:
       - 3001:3001
     environment:
-      PRODUCTION: true
+      PRODUCTION: "true"
       PGPASSWORD: ${PGPASSWORD}
       PGUSER: ${PGUSER}
       PGDATABASE: ${PGDATABASE}
