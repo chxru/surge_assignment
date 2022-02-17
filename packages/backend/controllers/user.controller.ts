@@ -13,8 +13,10 @@ import { API } from "@chxru/types";
  */
 const HandleUserEdit = async (
   data: API.User.EditInfoForm,
-  token: string
+  t: string
 ): Promise<API.Auth.PublicUserData> => {
+  // token is in token=xxxxxxx format
+  const token = t.split("=")[1];
   const id = await DecodeUID(token);
 
   const q1 = await db.query<API.Auth.PublicUserData>(
@@ -40,9 +42,11 @@ const HandleUserEdit = async (
 const HandleChangePwd = async (
   old_pwd: string,
   new_pwd: string,
-  token: string
+  t: string
 ): Promise<void> => {
   // grab uid from token
+  // token is in token=xxxxxxx format
+  const token = t.split("=")[1];
   const id = await DecodeUID(token);
 
   // get old password
